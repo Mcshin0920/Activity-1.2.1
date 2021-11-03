@@ -23,9 +23,8 @@ timer_up = False
 #-----game functions--------
 def spot_clicked(x,y):
   counter_one.clear()
-  FONT = ("Arial", 20, "normal")
   global points
-  size = rand.randint(0, 10)
+  size = rand.randint(1, 10)
   change_position(size)
   counter_one.color("white")
   counter_one.hideturtle()
@@ -33,7 +32,7 @@ def spot_clicked(x,y):
   counter_one.speed(0)
   counter_one.goto(300, 300)
   points += 1
-  counter_one.write("points: " + str(points), font=FONT)
+  counter_one.write("points: " + str(points), font=font_setup)
   
 def change_position(size):
   if timer_up == False:
@@ -72,7 +71,10 @@ def countdown():
 def start_game():
   wn = trtl.Screen()
   wn.ontimer(countdown, counter_interval)
-  spot.onclick(spot_clicked)
+  if timer_up == False:
+    spot.onclick(spot_clicked)
+  else:
+    spot.clear()
   wn.bgcolor("orange")
   wn.mainloop()
 
