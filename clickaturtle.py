@@ -22,43 +22,42 @@ counter_interval = 1000   #1000 represents 1 second
 timer_up = False
 #-----game functions--------
 def spot_clicked(x,y):
-  points = 0
-  size = rand.randint(1, 10)
+  counter_one.clear()
+  FONT = ("Arial", 20, "normal")
+  global points
+  size = rand.randint(0, 10)
   change_position(size)
-  points = points + 1
-def change_position(size):
-  points =+ 1
-  Lives(points)
-  new_xpos = rand.randint(-180,180)
-  new_ypos = rand.randint(-140,140)
-  colors = ["blue" , "red", "green", "pink"]
-  colorcycle = rand.randint(0,3)
-  spot.hideturtle()
-  spot.fillcolor(colors[colorcycle])
-  spot.turtlesize(size)
-  spot.goto(new_xpos,new_ypos)
-  spot.showturtle()
-class Lives(trtl.Turtle):
-  FONT = ("Arial", 24, "normal")
-  def __init__(self, lives):
-    super().__init__()
-    self.lives = points
-    self.color("red")
-    self.hideturtle()
-    self.penup()
-    self.speed(0)
-    self.goto(300, 300)
-    self.gain_points()
+  counter_one.color("white")
+  counter_one.hideturtle()
+  counter_one.penup()
+  counter_one.speed(0)
+  counter_one.goto(300, 300)
+  points += 1
+  counter_one.write("points: " + str(points), font=FONT)
   
-  def gain_points(self):
-    self.lives += 1
-    self.clear()
-    self.write("points: " + str(self.lives), font=self.FONT)
+def change_position(size):
+  if timer_up == False:
+    new_xpos = rand.randint(-400,400)
+    new_ypos = rand.randint(-300, 300)
+    colors = ["blue" , "red", "green", "pink"]
+    colorcycle = rand.randint(0,3)
+    spot.stamp()
+    spot.hideturtle()
+    spot.fillcolor(colors[colorcycle])
+    spot.turtlesize(size)
+    spot.goto(new_xpos,new_ypos)
+    spot.showturtle()
+  else:
+    spot.clear()
+
 
 def countdown():
   global timer, timer_up
+  counter.hideturtle()
+  counter.speed(0)
+  counter.color("white")
   counter.penup()
-  counter.goto(-300, 300)
+  counter.goto(-400, 300)
   counter.pendown()
   counter.clear()
   if timer <= 0:
@@ -70,7 +69,11 @@ def countdown():
     counter.getscreen().ontimer(countdown, counter_interval)
     
 #-----events----------------
-spot.onclick(spot_clicked)
-wn = trtl.Screen()
-wn.ontimer(countdown, counter_interval) 
-wn.mainloop()
+def start_game():
+  wn = trtl.Screen()
+  wn.ontimer(countdown, counter_interval)
+  spot.onclick(spot_clicked)
+  wn.bgcolor("orange")
+  wn.mainloop()
+
+start_game()
