@@ -4,6 +4,7 @@ import turtle as trtl
 import random as rand
 import leaderboard as lb
 #-----game configuration----
+
 spotColor = "pink"
 spotShape = "circle"
 spotSize = 5
@@ -15,8 +16,9 @@ timer_up = False
 leaderboard_file_name = "a122_leaderboard.txt"
 leader_names_list = []
 leader_scores_list = []
-player_name = input ("Please enter your name:")
+player_name = input("Please enter your name:")
 #-----initialize turtle-----
+
 spot = trtl.Turtle()
 counter_one = trtl.Turtle()
 counter =  trtl.Turtle()
@@ -25,6 +27,7 @@ spot.turtlesize(spotSize)
 spot.fillcolor(spotColor)
 spot.speed(0)
 spot.penup()
+
 #-----game functions--------
 def spot_clicked(x,y):
   counter_one.clear()
@@ -53,6 +56,7 @@ def change_position(size):
     spot.showturtle()
   else:
     spot.hideturtle()
+    manage_leaderboard()
 
 
 def countdown():
@@ -67,7 +71,6 @@ def countdown():
   if timer <= 0:
     counter.write("Time's Up", font=font_setup)
     timer_up = True
-    manage_leaderboard
   else:
     counter.write("Timer: " + str(timer), font=font_setup)
     timer -= 1
@@ -81,7 +84,6 @@ def manage_leaderboard():
   global leader_names_list
   global points
   global spot
-
   # load all the leaderboard records into the lists
   lb.load_leaderboard(leaderboard_file_name, leader_names_list, leader_scores_list)
 
